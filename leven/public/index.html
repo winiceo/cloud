@@ -1,0 +1,27 @@
+ 
+<script src="/primus/primus.io.js"></script>
+
+
+<button onclick="aa()" >afdaf</button>
+<script>
+var socket = Primus.connect('ws://baas.71an.com');
+
+socket.on('open', function () {
+
+  // Send request to join the news room
+  socket.send('hi', 'hello world');
+
+  // listen to hello events
+  socket.on('hello', function (msg) {
+
+    console.log(msg); //-> hello from the server
+
+  });
+
+});
+
+function aa(){
+	socket.send('hi', 'hello world');
+}
+
+</script>

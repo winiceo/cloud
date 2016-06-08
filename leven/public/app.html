@@ -1,0 +1,104 @@
+ 
+<script src="/primus/primus.io.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+
+
+<input type="file" id="profilePhotoFileUpload">
+
+<button onclick="upload()">af</button>
+<img id="profileImg">
+
+  <script type="text/javascript" src="parse-1.6.14.js"></script>
+
+ <script>
+ 
+  Parse.initialize("71an.com", "71an.com");
+  Parse.serverURL=("http://baas.71an.com:8043/parse");
+ Parse.User.logIn("leven", "56os.com", {
+   success: function(user) {
+     console.log(user)
+     // Do stuff after successful login.
+   },
+   error: function(user, error) {
+     // The login failed. Check error to see why.
+   }
+ });
+
+  function upload(){
+
+
+    var fileUploadControl = $("#profilePhotoFileUpload")[0];
+    if (fileUploadControl.files.length > 0) {
+      var file = fileUploadControl.files[0];
+      var name = "photo.jpg";
+      var parseFile = new Parse.File(name, file);
+
+
+      parseFile.save().then(function(a) {
+        // The file has been saved to Parse.
+  console.log(a)
+
+//        var jobApplication = new Parse.Object("JobApplication");
+//        jobApplication.set("applicantName", "Joe Smith");
+//        jobApplication.set("applicantResumeFile", parseFile);
+//        jobApplication.save();
+        console.log(parseFile)
+        //var profilePhoto = profile.get("photoFile");
+        $("#profileImg")[0].src = parseFile.url();
+
+
+      }, function(error) {
+        // The file either could not be read, or could not be saved to Parse.
+      });
+
+
+
+    }
+  }
+
+
+fetch("/login").then(function(res) {
+  // res instanceof Response == true.
+  if (res.ok) {
+    res.json().then(function(data) {
+      console.log(data);
+
+      init(data.token)
+
+    });
+  } else {
+    console.log("Looks like the response wasn't perfect, got status", res.status);
+  }
+}, function(e) {
+  console.log("Fetch failed!", e);
+});
+
+function init(token){
+   var primus = new Primus('http://baas.71an.com:8122/?token='+token);
+
+  primus.on('wall', function (data) {
+    console.log("wall:");
+        console.log(data);
+
+    //primus.send('my other event', { my: 'data' });
+  });
+
+
+  primus.on('pic', function (data) {
+    console.log("pic:"+data);
+    console.log(data);
+    //primus.send('my other event', { my: 'data' });
+  });
+
+  setTimeout(function(){
+    primus.send('message', { cate:'wall',data: 'data is me' });
+
+  },2000)
+
+  setTimeout(function(){
+    primus.send('message', { cate:'pic',data: 'picadfasdf' });
+
+  },2000)
+}
+  
+ </script>

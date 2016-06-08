@@ -1,0 +1,13 @@
+{
+    "name": "leven/php",
+    "authors": [{
+        "name": "赵少辉",
+        "email": "zhaoshaohui@pmkoo.com"
+    }],
+
+     
+    "require": {
+        "parse/php-sdk": "1.2.*",
+        "cboden/ratchet": "0.3.*"
+    }
+}

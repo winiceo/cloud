@@ -1,0 +1,31 @@
+ 
+<script src="/primus/primus.io.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="parse-1.6.14.js"></script>
+
+ <script>
+ var tt="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0NjQ4OTY2MDE2OTYsImlhdCI6MTQ2NDg5NjAwMTY5NiwiaXNzIjp7InVzZXJuYW1lIjoibGV2ZW4iLCJBQ0wiOnsiKiI6eyJyZWFkIjp0cnVlfSwiM0NZT1pCQ0J3VSI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6dHJ1ZX19LCJ1cGRhdGVkQXQiOiIyMDE2LTA2LTAyVDA4OjIzOjAxLjE2MFoiLCJjcmVhdGVkQXQiOiIyMDE2LTA2LTAyVDA4OjIzOjAxLjE2MFoiLCJzZXNzaW9uVG9rZW4iOiJyOmZmOWZkMmM2ODU3MjZiZGEzODM4MDY5ZWNjZDRiNDFmIiwib2JqZWN0SWQiOiIzQ1lPWkJDQndVIn19.-PLLprhxZEY6zaFrX_XeQ46LhlIR74_KrW1fioG2PBE"
+ Parse.initialize("71an.com", "71an.com");
+    Parse.serverURL=("http://localhost:4040/parse");
+Parse.User.logIn("leven", "56os.com", {
+  success: function(user) {
+    console.log(user)
+    // Do stuff after successful login.
+  },
+  error: function(user, error) {
+    // The login failed. Check error to see why.
+  }
+});
+
+ var primus = new Primus('http://localhost:8080/?token='+tt);
+
+  primus.on('news', function (data) {
+    console.log(data);
+    //primus.send('my other event', { my: 'data' });
+  });
+
+  setTimeout(function(){
+    primus.send('my other event', { my333: 'data' });
+
+  },2000)
+ </script>

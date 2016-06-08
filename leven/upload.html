@@ -1,0 +1,37 @@
+ 
+<script type="text/javascript" src="http://www.hixianchang.com/plugin/jquery/jquery-2.1.3.min.js"></script>
+
+ <form class="fm"  enctype="multipart/form-data" >
+                                                            <input type="file" id="up" name="file"  >
+                                                            <a  onClick="upload()">adf</a>
+
+                                                        </form>
+
+<script>
+	
+var uploadUrl= "http://api.71an.com:8000/api/v1/common/image/new";
+var token="Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0NjU0Nzg5NjYsInVzZXJuYW1lIjoibGV2ZW4iLCJpYXQiOiIxNDY1MzkyNTY2In0.Q99SGTCPEcrJRwqKDKVWAthuZJaapxS0uhx88E5wXSKeU434MId1MGVCpxVDbyMOUKtLEnF8ICAzbA_MwuK5qg5ep6i704aFEcFx6pTXFPKJ0TEBhAknUp6NmKgl2WmNiiZ4I2r3CY24TMjs1vBWoVq-P1AsuS7Lc_483MAf1Bnre3eBe-Ji9MDCl5K9jlFVGfk2nqCrCFZre6ay_thO6scIppSuWSCZSwcaqce8IFF9vgYbPCjxf1j3OUwMOcHFR2lg4MAnsfh6gEfODeHJ1ZnJN0a1B1s0RMMElIa3ruR6y-bNCFTS5cicxVSppZgqdr7Q3YM6vUUECCGe8IZiNHkSJ9VIYVHwFouig0Dy-N4vesYSDQyJpDOmAflyim3qoii9k7gidBIX7HEK4taQ7Zs_z0vZ3_MBFcF4FnyXKjCZ3tPxH_42FnOHV_gw9QnAGY_Sm13q8EdSPKD38YmlrlqYoJ1Y7wfRiZ09uGzwlplCHoUQDuCRqlBjU3jh_6xiUtWi6M2ZgqWh1wHvdjJVPHsSi3cqOzcR3U1TFpjHbMMn8zshFRSce7hP5SOPH5dWDnE0t_h2uPaWW_piJvuciFTd8UoLkaGMA1QtxMuXOO0o4UK-keSpP7dRJb1iFQfgS9YMsdwSVjkbCt1V0ooQIax4hnSsmtxzEYBnQBtexRc"
+
+
+function upload(){
+	var data = new FormData($('.fm')[0]);
+               // var input = document.querySelector('input[type="file"]')
+
+
+//                data.append('file', input.files[0])
+                data.append('context', 'vips')
+                console.log(data)
+                fetch(uploadUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: data
+                })
+
+
+ }               
+</script>
+
